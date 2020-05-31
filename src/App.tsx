@@ -22,4 +22,6 @@ render(
   document.getElementById('root'),
 )
 
+console.log('Added console.')
+
 export default App
