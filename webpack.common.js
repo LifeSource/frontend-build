@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin')
@@ -10,12 +11,17 @@ const babelOptions = {
 
 const env = process.env.NODE_ENV // used to check the NODE environment mode.
 
+const isDev = env === 'development'
+
+console.log('isDev: ', isDev)
+
 module.exports = {
   entry: [path.resolve(__dirname, 'src/index.ts')],
   output: {
     filename: 'app.bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  watch: isDev ? true : false,
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
   },
@@ -43,7 +49,7 @@ module.exports = {
         test: /\.css$/i,
         use: [
           // HMR SCSS was not working properly with ExtractCssChunks plugin, so had to used this setup
-          env === 'development' ? 'style-loader' : ExtractCssChunks.loader,
+          isDev ? 'style-loader' : ExtractCssChunks.loader,
           'css-loader',
         ],
       },
@@ -51,7 +57,7 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [
           // HMR for SCSS was not working properly with ExtractCssChunks plugin, so had to used this setup
-          env === 'development' ? 'style-loader' : ExtractCssChunks.loader,
+          isDev ? 'style-loader' : ExtractCssChunks.loader,
           // Translates CSS into CommonJS
           'css-loader',
           // Compiles Sass to CSS
@@ -73,6 +79,7 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new ErrorOverlayPlugin(),
     new CleanWebpackPlugin(),
     new ExtractCssChunks({
