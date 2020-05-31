@@ -1,6 +1,15 @@
 {
   "compilerOptions": {
     "noEmit": true,
-    "baseUrl": "./src"
-  }
+    "baseUrl": "./src",
+    "outDir": "./dist/",
+    "jsx": "react",
+    "lib": ["dom", "esnext"],
+    "module": "esnext",
+    "target": "es5",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules", "**/*.(spec|test).ts"]
 }

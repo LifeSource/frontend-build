@@ -1,6 +1,34 @@
-dist
+# Package managers folders
 node_modules
+bower_components
 
+# Unwanted assets
 *.exe
 *.zip
+
+# MAC OSX artifacts
 .DS_Store
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+dist
+/build
+
+# You should never check in '.env' files as they contains passwords and secrets to services used by applications.
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# misc 
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
